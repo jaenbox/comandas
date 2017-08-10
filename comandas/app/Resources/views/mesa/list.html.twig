@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% trans_default_domain 'AppBundle' %}
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}
+{% block title %}Mesas{% endblock %}
+{% block body %}
+	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    	<h1 class="page-header">Mesas</h1>
+        <h2 class="sub-header">Selección mesa</h2>
+       	<div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+              	<tr>
+                  	<td>Num. Mesa</td>
+					<td>Comensales</td>	
+					<td></td>                  
+                </tr>
+              </thead>
+              <tbody>
+                {% for mesa in mesas %}
+						<tr>
+							<td>{{ mesa.id }}</td>
+							<td>{{ mesa.comensales }}</td>
+							<td>              			
+                  				<div class="btn-group">
+                      				<a type="button" class="btn btn-success btn_table active" href="{{ path( 'showMesa', { 'id': a.id } ) }}">Show</a>
+                      				<a type="button" class="btn btn-warning btn_table active" href="{{ path( 'editMesa', { 'id': a.id } ) }}">Edit</a>
+                      				<a type="button" class="btn btn-danger btn_table active" href="{{ path( 'deleteMesa', { 'id': a.id } ) }}">Delete</a>
+                  				</div>
+              				</td>						
+						</tr>
+				{% endfor %}
+              </tbody>
+            </table>
+     	</div>       
+  	</div>
+{% endblock %}

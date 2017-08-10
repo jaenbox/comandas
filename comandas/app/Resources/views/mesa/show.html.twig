@@ -1,0 +1,23 @@
+{% extends "base.html.twig" %}
+{% trans_default_domain 'AppBundle' %}
+
+{% block title %} Administrador {% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}
+
+{% block body %}
+	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    	<h1 class="page-header">Mesa</h1>
+        <h2 class="sub-header">Show</h2>
+        <div class="table-responsive">
+    		<table class="table">
+    			<tbody>
+    					<tr><th>Número mesa</th><td>{{ mesa.id }}</td></tr>
+    					<tr><th>Comensales</th><td>{{ mesa.comensales }}</td></tr>    					
+    			</tbody>
+    		</table>
+		</div>
+	</div>
+
+{% endblock %}

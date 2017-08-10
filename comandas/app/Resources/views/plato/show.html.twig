@@ -1,0 +1,34 @@
+{% extends "base.html.twig" %}
+{% trans_default_domain 'AppBundle' %}
+
+{% block title %} Plato {% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}
+
+{% block body %}
+	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    	<h1 class="page-header">Plato</h1>
+        <h2 class="sub-header">Show</h2>
+        <div class="table-responsive">
+    		<table class="table">
+    			<tbody>
+    					<tr><th></th><td><img src="{{ 'http://localhost/dws/web/uploads/documents/'~plato.id~'.'~plato.path }}" class="img-thumbnail" width="700" height="300" border="0" alt="img plato"></td></tr>
+    					
+    					<tr><th>Category</th>
+    						<td>{% if plato.category == 'al' %}
+									almuerzo</td>
+								{% elseif plato.category == 'co' %}
+									comida</td>
+								{% elseif plato.category == 'ce' %}
+									cena</td>
+								{% endif %}</tr>
+    					<tr><th>Price</th><td>{{ plato.price }}</td></tr>
+    					<tr><th>Description</th><td>{{ plato.description }}</td></tr>
+    					
+    			</tbody>
+    		</table>
+		</div>
+	</div>
+
+{% endblock %}

@@ -1,0 +1,33 @@
+{% trans_default_domain 'AppBundle' %}
+
+{% block body %}        
+    {% image '@AppBundle/Resources/public/images/index.jpg' %}
+    	<img id="fondo" src="{{ asset_url }}" alt="fondo" />
+    {% endimage %}
+    {% stylesheets '@AppBundle/Resources/public/css/*' filter='cssrewrite' %}
+    		<link href="{{ asset_url }}" rel="stylesheet" type="text/css" />
+        {% endstylesheets %}
+        <div class="login">
+        	<div class="login-screen">
+        		<div class="app-title">
+        			<h1>Login</h1>
+        		</div>
+        		<div class="login-form">
+        			<form action="{{ path('login_check') }}" method="post">
+        				<div class="control-group">
+        					<label for="username">{{ 'Username'}}</label>
+        	    			<input class="input_login" type="text" id="username" name="_username" value="{{ last_username }}" />
+        	    		</div>
+        	    		<div class="control-group">
+        	    			<label for="password">{{ 'Password'}}</label>
+        	    			<input class="input_login" type="password" id="password" name="_password" />
+        	    		</div>
+        	    		<button class="btn btn-primary btn-large btn-block" type="submit">{{ 'Login'}}</button>
+        	    	</form>
+        		</div>
+        	</div>
+		</div>
+		{% if error %}
+			<div class="alert alert-danger div_centrado">Introduce un usuario y contraseña validos</div>
+	    {% endif %}
+{% endblock %}

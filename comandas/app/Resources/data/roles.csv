@@ -1,0 +1,3 @@
+administrador,ROLE_SUPER_ADMIN
+cocinero,ROLE_COCINERO
+camarero,ROLE_CAMARERO

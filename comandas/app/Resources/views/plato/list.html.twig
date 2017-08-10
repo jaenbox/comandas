@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain 'AppBundle' %}
+
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}
+
+{% block title %}Platos{% endblock %}
+
+{% block body %}
+	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    	<h1 class="page-header">Platos</h1>
+        <h2 class="sub-header">Selección platos</h2>
+        <div class="table-responsive">
+            <table class="table table-striped">    			
+				<thead>
+					<tr>
+						<td>Img</td>
+						<td>Nombre</td>						
+						<td>Categoria</td>
+						<td>Price</td>
+						<td></td>
+					</tr>
+				</thead>
+				<tbody>
+					{% for plato in platos %}
+						<tr>
+							<td><img src="{{ 'http://localhost/dws/web/uploads/documents/'~plato.id~'.'~plato.path }}" class="img-circle" width="100" height="100" border="0" alt="img plato"></td>							
+							<td>{{ plato.name }}</td>							
+							<td>{% if plato.category == 'al' %}
+									almuerzo</td>
+								{% elseif plato.category == 'co' %}
+									comida</td>
+								{% elseif plato.category == 'ce' %}
+									cena</td>
+								{% endif %}
+							<td>{{ plato.price}}</td>
+							{# <td><img src="{{ asset('uploads/documents/'~ plato.id~ '.'~ plato.path) }}" width="30" height="30" border="0" alt="Img del plato"></td>#}
+							<td>              			
+                  				<div class="btn-group">
+                      				<a type="button" class="btn btn-success btn_table active" href="{{ path( 'showPlato', { 'id': plato.id } ) }}">Show</a>
+                      				<a type="button" class="btn btn-warning btn_table active" href="{{ path( 'editPlato', { 'id': plato.id } ) }}">Edit</a>
+                      				<a type="button" class="btn btn-danger btn_table active" href="{{ path( 'deletePlato', { 'id': plato.id } ) }}">Delete</a>
+                  				</div>
+                  			</td>
+						</tr>
+				    {% endfor %}
+				</tbody>
+			</table>
+		</div>		
+	</div>
+{% endblock %}

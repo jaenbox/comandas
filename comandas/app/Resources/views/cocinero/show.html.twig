@@ -1,0 +1,28 @@
+{% extends "base.html.twig" %}
+{% trans_default_domain 'AppBundle' %}
+
+{% block title %} Cocinero {% endblock %}
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}
+
+{% block body %}
+	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    	<h1 class="page-header">Usuarios</h1>
+        <h2 class="sub-header">Cocinero</h2>
+        <div class="table-responsive">
+    		<table class="table">
+    			<tbody>
+    					<tr><th><i class="fa fa-user fa-2x"/></th><td>{{ cocinero.id }}</td></tr>
+    					<tr><th>Username</th><td>{{ cocinero.username }}</td></tr>
+    					<tr><th>Surname</th><td>{{ cocinero.surname }}</td></tr>
+    					<tr><th>DNI</th><td>{{ cocinero.dni }}</td></tr>
+    					<tr><th><i class="fa fa-at fa-2x"/></th><td>{{ cocinero.email }}</td></tr>
+    					<tr><th><i class="fa fa-phone-square fa-2x"/></th><td>{{ cocinero.phone }}</td></tr>
+    					<tr><th>Address</th><td>{{ cocinero.address }}</td></tr>
+    			</tbody>
+    		</table>
+		</div>
+	</div>
+
+{% endblock %}

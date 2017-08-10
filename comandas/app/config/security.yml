@@ -1,0 +1,74 @@
+# To get started with security, check out the documentation:
+# https://symfony.com/doc/current/security.html
+security:
+    encoders:
+        AppBundle\Entity\User:
+            algorithm: bcrypt
+            cost: 12
+            
+    role_hierarchy:            
+        ROLE_CAMARERO: ROLE_CAMARERO
+        ROLE_COCINERO: ROLE_COCINERO
+        ROLE_SUPER_ADMIN: [ ROLE_CAMARERO, ROLE_COCINERO ]
+        
+    providers:
+        db_provider:
+            entity:
+                class: AppBundle:User
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            pattern: ^/
+            http_basic: ~
+            provider: db_provider
+            form_login:
+              login_path: /
+              check_path: /login_check
+              default_target_path: 'index'
+              always_use_default_target_path: true
+              use_referer: true
+              failure_path: / # crear plantilla cuando salte error de autenticacion 
+            logout:
+              path: /logout
+              target: '/'
+            security: true
+            anonymous: true
+            #remember_me:
+                #secret: '%secret%'
+                #lifetime: 604800 # 1 semana
+                #path: 'index'
+            
+    access_control:
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/login_check, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/logout, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/index, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/new, role: ROLE_SUPER_ADMIN }
+        - { path: ^/admin/edit, role: ROLE_SUPER_ADMIN }
+        - { path: ^/admin/delete, role: ROLE_SUPER_ADMIN }
+        - { path: ^/admin/show, role: ROLE_SUPER_ADMIN }
+        - { path: ^/admin/list, role: ROLE_SUPER_ADMIN }
+        - { path: ^/camarero/new, role: ROLE_SUPER_ADMIN }
+        - { path: ^/camarero/edit, role: ROLE_SUPER_ADMIN }
+        - { path: ^/camarero/delete, role: ROLE_SUPER_ADMIN }
+        - { path: ^/camarero/show, role: ROLE_SUPER_ADMIN }
+        - { path: ^/camarero/list, role: ROLE_SUPER_ADMIN }
+        - { path: ^/cocinero/new, role: ROLE_SUPER_ADMIN }
+        - { path: ^/cocinero/edit, role: ROLE_SUPER_ADMIN }
+        - { path: ^/cocinero/list, role: ROLE_SUPER_ADMIN }
+        - { path: ^/mesa/new, role: ROLE_SUPER_ADMIN }
+        - { path: ^/mesa/edit, role: ROLE_SUPER_ADMIN }
+        - { path: ^/mesa/delete, role: ROLE_SUPER_ADMIN }
+        - { path: ^/mesa/show, role: ROLE_SUPER_ADMIN }
+        - { path: ^/mesa/list, role: ROLE_SUPER_ADMIN }        
+        - { path: ^/plato/edit, role: [ ROLE_SUPER_ADMIN, ROLE_COCINERO ] }
+        - { path: ^/plato/delete, role: [ ROLE_SUPER_ADMIN, ROLE_COCINERO ] }
+        - { path: ^/plato/show, role: [ ROLE_SUPER_ADMIN, ROLE_COCINERO ] }
+        - { path: ^/plato/list, role: [ ROLE_SUPER_ADMIN, ROLE_COCINERO ] }
+        - { path: ^/comanda/list, role: [ ROLE_SUPER_ADMIN, ROLE_COCINERO, ROLE_CAMARERO ] }
+        - { path: ^/comanda/edit, role: ROLE_SUPER_ADMIN }
+        - { path: ^/option, role: [ ROLE_SUPER_ADMIN, ROLE_COCINERO, ROLE_CAMARERO ] }

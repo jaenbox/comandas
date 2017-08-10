@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain 'AppBundle' %}
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}
+{% block body %}
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+ 	<h1 class="page-header">Dasboard</h1>
+	<h2 class="sub-header">Options</h2>
+	
+	<a type="button" class="btn btn-primary btn-lg btn-block" href="{{ path( new ) }}">New</a>
+	<a type="button" class="btn btn-default btn-lg btn-block" href="{{ path( list ) }}">List</a>
+</div>
+{% endblock %}
