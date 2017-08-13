@@ -12,12 +12,6 @@ login_check:
 index:
     path: /index
     defaults: { _controller: AppBundle:Init:index, _locale: es }
-
-option:
-    path: /option/{_id}
-    defaults: { _controller: AppBundle:Init:option, _locale:es }
-    requirements:
-        id: \d+
          
 newAdmin:
     path: /admin/new
@@ -116,10 +110,6 @@ showPlato:
 listPlato:
     path: /plato/list
     defaults: { _controller: AppBundle:Plato:list, _locale: es }
-    
-mesa:
-    path: /mesa
-    defaults: { _controller: AppBundle:Mesa:default, _locale: es }
 
 newMesa:
     path: /mesa/new
@@ -146,3 +136,13 @@ showMesa:
 listMesa:
     path: /mesa/list
     defaults: { _controller: AppBundle:Mesa:list, _locale: es }
+    
+editComanda:
+    path: /comanda/edit/{id}
+    defaults: { _controller: AppBundle:Comanda:edit, _locale: es }
+    requirements:
+        id: \d+
+        
+listComanda:
+    path: /comanda/list
+    defaults: { _controller: AppBundle:Comanda:list, _locale: es }

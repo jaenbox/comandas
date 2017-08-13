@@ -9,6 +9,9 @@
     	<h1 class="page-header">Usuarios</h1>
     
         <h2 class="sub-header">Camarero</h2>
+        <div class="border-right">
+        	<a type="button" class="btn btn-primary" href="{{ path( 'newCamarero' ) }}">Añadir</a>
+        </div>
             <div class="table-responsive">
             <table class="table table-striped">
               <thead>
@@ -35,6 +38,10 @@
               		</tr>
               	{% endfor %}
               </tbody>
-            </table>        
+            </table>
+          </div>
+          <div class="border-left">
+        	<a type="button" class="btn btn-default" href="{{ path( 'index' ) }}">Atrás</a>
+        </div>     
   	</div>
 {% endblock %}

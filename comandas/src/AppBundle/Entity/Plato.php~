@@ -3,6 +3,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Doctrine\ORM\Mapping as ORM;
@@ -14,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Entity
  * @ORM\Table(name="plato")
- *
+ * @ORM\HasLifecycleCallbacks
  */
 class Plato {
     /**
@@ -45,10 +46,30 @@ class Plato {
      */
     protected $description;
     /**
-     * @ORM\Column(type="text")
      * @Assert\File(maxSize="6000000")
      */
-    protected $file;
+    protected $file;    
+    /**
+     * @ORM\Column(type="string")
+     * @Assert\NotBlank(message="notblank")
+	 * @Assert\Choice(
+	 * 		choices = {"al", "co", "ce"})
+     */
+    protected $category;
+    /**
+     * @ORM\ManyToMany(targetEntity="Comanda", inversedBy="plato")
+     */
+    protected $comandas;
+    
+    public function __construct()
+    {
+        $this->comandas = new ArrayCollection();
+    }
+    
+    
+    private $temp;
+    
+    
     
     // Getters & Setters
     
@@ -140,7 +161,25 @@ class Plato {
     public function setDescription($description)
     {
         $this->description = $description;
+        
     }
+    
+    /**
+     * @return the $categoria
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param field_type $categoria
+     */
+    public function setCategory($category)
+    {
+        $this->category = $category;
+    }
+
     /**
      * Sets file.
      *
@@ -149,21 +188,20 @@ class Plato {
     public function setFile(UploadedFile $file = null)
     {
         $this->file = $file;
+        // check if we have an old image path
+        if (is_file($this->getAbsolutePath())) {
+            // store the old name to delete after the update
+            $this->temp = $this->getAbsolutePath();
+        } else {
+            $this->path = 'initial';
+        }
     }
     
-    
-    /*
-     * Métodos para controlar img
-     * */
-    
-    /**
-     * Ruta absoluta al archivo
-     */
     public function getAbsolutePath()
     {
         return null === $this->path
         ? null
-        : $this->getUploadRootDir().'/'.$this->path;
+        : $this->getUploadRootDir().'/'.$this->id.'.'.$this->path;
     }
     
     public function getWebPath()
@@ -186,29 +224,92 @@ class Plato {
         // al mostrar el documento/imagen cargada en la vista.
         return 'uploads/documents';
     }
+     
+    /**
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
+     */
+    public function preUpload()
+    {
+        if (null !== $this->getFile()) {
+            $this->path = $this->getFile()->guessExtension();
+        }
+    }
     
+    /**
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
     public function upload()
     {
-        // the file property can be empty if the field is not required
         if (null === $this->getFile()) {
             return;
         }
         
-        // aquí usa el nombre de archivo original pero lo debes
-        // sanear al menos para evitar cualquier problema de seguridad
+        // check if we have an old image
+        if (isset($this->temp)) {
+            // delete the old image
+            unlink($this->temp);
+            // clear the temp image path
+            $this->temp = null;
+        }
         
-        // move takes the target directory and then the
-        // target filename to move to
+        // you must throw an exception here if the file cannot be moved
+        // so that the entity is not persisted to the database
+        // which the UploadedFile move() method does
         $this->getFile()->move(
             $this->getUploadRootDir(),
-            $this->getFile()->getClientOriginalName()
+            $this->id.'.'.$this->getFile()->guessExtension()
             );
         
-        // set the path property to the filename where you've saved the file
-        $this->path = $this->getFile()->getClientOriginalName();
-        
-        // limpia la propiedad «file» ya que no la necesitas más
-        $this->file = null;
+        $this->setFile(null);
     }
     
+    /**
+     * @ORM\PreRemove()
+     */
+    public function storeFilenameForRemove()
+    {
+        $this->temp = $this->getAbsolutePath();
+    }
+    
+    /**
+     * @ORM\PostRemove()
+     */
+    public function removeUpload()
+    {
+        if (isset($this->temp)) {
+            unlink($this->temp);
+        }
+    }
+    
+    /**
+     * Add comanda
+     *
+     * @param \AppBundle\Entity\Comanda $comanda
+     * @return Roles
+     */
+    public function addComanda(\AppBundle\Entity\Comanda $comandas)
+    {
+        $this->comandas[] = $comandas;
+        return $this;
+    }
+    /**
+     * Remove comandas
+     *
+     * @param \AppBundle\Entity\Comanda $comandas
+     */
+    public function removeUser(\AppBundle\Entity\Comanda $comandas)
+    {
+        $this->comandas->removeElement($comandas);
+    }
+    /**
+     * Get comandas
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComandas()
+    {
+        return $this->comandas;
+    }
 }

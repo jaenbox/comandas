@@ -8,23 +8,29 @@
 	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     	<h1 class="page-header">Usuarios</h1>
     
-        <h2 class="sub-header">Cocineros</h2>
+        <h2 class="sub-header">Comanda</h2>
+        
             <div class="table-responsive">
             <table class="table table-striped">
               <thead>
               	<tr>
-                  <th>Name</th>
-                  <th>Phone</th>
-                  <th>Email</th>
-                  <th></th>                  
+                  <th>Mesa</th>
+                  <th>Fecha</th>
+                  <th>Estado</th>
+                  <th>Pagado</th>                  
                 </tr>
               </thead>
               <tbody>
-              	{% for a in cocineros %}
+              	{% for a in comandas %}
               		<tr>
-              			<td>{{ a.username }}</td>
-              			<td>{{ a.phone }}</td>
-              			<td>{{ a.email }}</td>
+              			<td>{{ a.mesa.num }}</td>
+              			<td>{{ a.fecha|date('d-m-Y') }}</td>
+              			<td>{{ a.estado }}</td>
+              			<td>{% if a.isPagado == null %}
+              					pendiente
+              				{% else %}
+              					{{ a.isPagado }}</td> 
+              	            {% endif %} 
               			<td>              			
               				<div class="btn-group">
                   				<a type="button" class="btn btn-success btn_table active" href="{{ path( 'showCocinero', { 'id': a.id } ) }}">Show</a>
@@ -35,9 +41,9 @@
               	{% endfor %}
               </tbody>
             </table>
-    	</div>
-    	<div class="border-left">
+      	</div>
+      	<div class="border-left">
         	<a type="button" class="btn btn-default" href="{{ path( 'index' ) }}">Atrás</a>
-        </div>  
+        </div>
   	</div>
 {% endblock %}

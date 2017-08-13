@@ -33,6 +33,15 @@ class Roles implements RoleInterface {
      */
     private $role;
     /**
+     * @ORM\ManyToMany(targetEntity="User", mappedBy="roles")
+     */
+    private $users;
+    
+    public function __construct()
+    {
+        $this->users = new ArrayCollection();
+    }
+    /**
      * Get id
      *
      * @return integer
@@ -81,14 +90,7 @@ class Roles implements RoleInterface {
     {
         return $this->role;
     }
-    /**
-     * @ORM\ManyToMany(targetEntity="User", mappedBy="roles")
-     */
-    private $users;
-    public function __construct()
-    {
-        $this->users = new ArrayCollection();
-    }
+    
     /**
      * Add users
      *

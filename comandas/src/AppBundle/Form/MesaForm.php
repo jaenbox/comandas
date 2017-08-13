@@ -13,6 +13,7 @@ class MesaForm extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+        ->add('num', 'integer', ['label' => 'Número'])
         ->add('comensales', 'integer', ['label' => 'Comensales'])        
         ->add('save', 'submit');        
     }

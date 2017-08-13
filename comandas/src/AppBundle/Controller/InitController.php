@@ -17,16 +17,11 @@ class InitController extends Controller
         return $this->render('index/index.html.twig');
     }
     
-    public function optionAction($_id, Request $request)
-    {        
-        // Array con las rutas.
-        $optionA = array("newAdmin", "newCocinero", "newCamarero", "newMesa", "newPlato", "newComanda");
-        $optionB = array("listAdmin", "listCocinero", "listCamarero", "listMesa", "listPlato", "listComanda");
+    /**
+     * Listado de úlitmas comandas
+     * @param Request $request
+     */
+    public function listAction(Request $request) {
         
-        $new = $optionA[$_id];
-        $list = $optionB[$_id];
-        
-        // replace this example code with whatever you need
-        return $this->render('default/option.html.twig', array('new' => $new, 'list' => $list ));
     }
 }

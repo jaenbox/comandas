@@ -13,11 +13,14 @@
         <div class="table-responsive">
     		<table class="table">
     			<tbody>
-    					<tr><th>Número mesa</th><td>{{ mesa.id }}</td></tr>
+    					<tr><th>Número mesa</th><td>{{ mesa.num }}</td></tr>
     					<tr><th>Comensales</th><td>{{ mesa.comensales }}</td></tr>    					
     			</tbody>
     		</table>
 		</div>
+		<div class="border-left">
+        	<a type="button" class="btn btn-default" href="{{ path( 'listMesa' ) }}">Atrás</a>
+        </div>
 	</div>
 
 {% endblock %}

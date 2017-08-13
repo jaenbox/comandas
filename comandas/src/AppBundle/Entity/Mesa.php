@@ -29,6 +29,12 @@ class Mesa {
      * @Assert\NotBlank()
      *
      */
+    protected $num;
+    /**
+     * @ORM\Column(type="integer", length=20)
+     * @Assert\NotBlank()
+     *
+     */
     protected $comensales;
     
     
@@ -63,5 +69,22 @@ class Mesa {
     public function setComensales($comensales)
     {
         $this->comensales = $comensales;
-    }    
+    }
+    /**
+     * @return the $num
+     */
+    public function getNum()
+    {
+        return $this->num;
+    }
+
+    /**
+     * @param field_type $num
+     */
+    public function setNum($num)
+    {
+        $this->num = $num;
+    }
+
+    
 }

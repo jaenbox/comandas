@@ -114,3 +114,17 @@ box-shadow: none;
 	padding: 10% 0; 
 	
 }
+
+.border-right{	
+	float:right;
+}
+.border-left{	
+	float:left;
+}
+.table-responsive {
+	margin-top:10%;
+}
+
+
+
+

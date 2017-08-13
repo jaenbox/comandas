@@ -4,8 +4,56 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0e54e6b6c5561d43769b932a94336438",
+    "content-hash": "c265ce340a639c4507c1e707863b6890",
     "packages": [
+        {
+            "name": "carlescliment/calendar-bundle",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/carlescliment/calendar-bundle.git",
+                "reference": "bbf463e0458885f3cfea0ca34f19b5a4593a2348"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/carlescliment/calendar-bundle/zipball/bbf463e0458885f3cfea0ca34f19b5a4593a2348",
+                "reference": "bbf463e0458885f3cfea0ca34f19b5a4593a2348",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "sensio/framework-extra-bundle": "*"
+            },
+            "require-dev": {
+                "doctrine/doctrine-bundle": "v1.5.0",
+                "doctrine/orm": "*",
+                "phpunit/phpunit": "*",
+                "symfony/symfony": "~2.5"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "BladeTester\\CalendarBundle": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Carles Climent Granell",
+                    "email": "carlescliment@gmail.com"
+                }
+            ],
+            "description": "A bundle for handling events in calendar",
+            "homepage": "https://github.com/carlescliment/calendar-bundle",
+            "keywords": [
+                "calendar",
+                "events"
+            ],
+            "time": "2016-10-14T09:23:21+00:00"
+        },
         {
             "name": "doctrine/annotations",
             "version": "v1.2.7",
@@ -2119,7 +2167,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "carlescliment/calendar-bundle": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

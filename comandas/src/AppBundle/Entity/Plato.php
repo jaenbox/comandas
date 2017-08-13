@@ -57,7 +57,7 @@ class Plato {
      */
     protected $category;
     /**
-     * @ORM\ManyToMany(targetEntity="Comanda", inversedBy="plato")
+     * @ORM\ManyToMany(targetEntity="Comanda", mappedBy="plato")
      */
     protected $comandas;
     
@@ -283,4 +283,43 @@ class Plato {
         }
     }
     
+    /**
+     * Add comanda
+     *
+     * @param \AppBundle\Entity\Comanda $comanda
+     * @return Roles
+     */
+    public function addComanda(\AppBundle\Entity\Comanda $comandas)
+    {
+        $this->comandas[] = $comandas;
+        return $this;
+    }
+    /**
+     * Remove comandas
+     *
+     * @param \AppBundle\Entity\Comanda $comandas
+     */
+    public function removeUser(\AppBundle\Entity\Comanda $comandas)
+    {
+        $this->comandas->removeElement($comandas);
+    }
+    /**
+     * Get comandas
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComandas()
+    {
+        return $this->comandas;
+    }
+
+    /**
+     * Remove comanda
+     *
+     * @param \AppBundle\Entity\Comanda $comanda
+     */
+    public function removeComanda(\AppBundle\Entity\Comanda $comandas)
+    {
+        $this->comandas->removeElement($comandas);
+    }
 }

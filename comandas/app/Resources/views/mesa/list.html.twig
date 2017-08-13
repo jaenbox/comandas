@@ -9,6 +9,9 @@
 	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     	<h1 class="page-header">Mesas</h1>
         <h2 class="sub-header">Selección mesa</h2>
+        <div class="border-right">
+        	<a type="button" class="btn btn-primary" href="{{ path( 'newMesa' ) }}">Añadir</a>
+        </div>
        	<div class="table-responsive">
             <table class="table table-striped">
               <thead>
@@ -21,19 +24,22 @@
               <tbody>
                 {% for mesa in mesas %}
 						<tr>
-							<td>{{ mesa.id }}</td>
+							<td>{{ mesa.num }}</td>
 							<td>{{ mesa.comensales }}</td>
 							<td>              			
                   				<div class="btn-group">
-                      				<a type="button" class="btn btn-success btn_table active" href="{{ path( 'showMesa', { 'id': a.id } ) }}">Show</a>
-                      				<a type="button" class="btn btn-warning btn_table active" href="{{ path( 'editMesa', { 'id': a.id } ) }}">Edit</a>
-                      				<a type="button" class="btn btn-danger btn_table active" href="{{ path( 'deleteMesa', { 'id': a.id } ) }}">Delete</a>
+                      				<a type="button" class="btn btn-success btn_table active" href="{{ path( 'showMesa', { 'id': mesa.id } ) }}">Show</a>
+                      				<a type="button" class="btn btn-warning btn_table active" href="{{ path( 'editMesa', { 'id': mesa.id } ) }}">Edit</a>
+                      				<a type="button" class="btn btn-danger btn_table active" href="{{ path( 'deleteMesa', { 'id': mesa.id } ) }}">Delete</a>
                   				</div>
               				</td>						
 						</tr>
 				{% endfor %}
               </tbody>
             </table>
-     	</div>       
+     	</div>
+     	<div class="border-left">
+        	<a type="button" class="btn btn-default" href="{{ path( 'index' ) }}">Atrás</a>
+        </div>     
   	</div>
 {% endblock %}

@@ -236,28 +236,6 @@ class Comanda {
     {
         return $this->plato->toArray();
     }
-
-    /**
-     * Add plato
-     *
-     * @param \AppBundle\Entity\Plato $plato
-     *
-     * @return Comanda
-     */
-    public function addPlato(\AppBundle\Entity\Plato $plato)
-    {
-        $this->plato[] = $plato;
-
-        return $this;
-    }
-
-    /**
-     * Remove plato
-     *
-     * @param \AppBundle\Entity\Plato $plato
-     */
-    public function removePlato(\AppBundle\Entity\Plato $plato)
-    {
-        $this->plato->removeElement($plato);
-    }
 }
+
+

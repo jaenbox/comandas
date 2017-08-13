@@ -11,6 +11,9 @@
 	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     	<h1 class="page-header">Platos</h1>
         <h2 class="sub-header">Selección platos</h2>
+        <div class="border-right">
+        	<a type="button" class="btn btn-primary" href="{{ path( 'newPlato' ) }}">Añadir</a>
+        </div>
         <div class="table-responsive">
             <table class="table table-striped">    			
 				<thead>
@@ -47,6 +50,9 @@
 				    {% endfor %}
 				</tbody>
 			</table>
-		</div>		
+		</div>
+		<div class="border-left">
+        	<a type="button" class="btn btn-default" href="{{ path( 'index' ) }}">Atrás</a>
+        </div>	
 	</div>
 {% endblock %}

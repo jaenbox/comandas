@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 11-08-2017 a las 01:47:42
+-- Tiempo de generación: 13-08-2017 a las 13:04:01
 -- Versión del servidor: 5.5.57-0ubuntu0.14.04.1
 -- Versión de PHP: 5.5.9-1ubuntu4.21
 
@@ -29,7 +29,6 @@ SET time_zone = "+00:00";
 CREATE TABLE IF NOT EXISTS `comanda` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `camarero_id` int(11) NOT NULL,
-  `plato_id` int(11) DEFAULT NULL,
   `mesa_id` int(11) NOT NULL,
   `observaciones` varchar(1000) COLLATE utf8_unicode_ci NOT NULL,
   `pagado` tinyint(1) DEFAULT NULL,
@@ -37,17 +36,22 @@ CREATE TABLE IF NOT EXISTS `comanda` (
   `fecha` date NOT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_45C50E547760FF7E` (`camarero_id`),
-  KEY `IDX_45C50E54B0DB09EF` (`plato_id`),
   KEY `IDX_45C50E548BDC7AE9` (`mesa_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
 
 --
--- Volcado de datos para la tabla `comanda`
+-- Estructura de tabla para la tabla `comanda_plato`
 --
 
-INSERT INTO `comanda` (`id`, `camarero_id`, `plato_id`, `mesa_id`, `observaciones`, `pagado`, `estado`, `fecha`) VALUES
-(1, 6, 2, 1, 'Salmon sin guarnición y salsas', NULL, 'cocina', '2017-08-10'),
-(2, 6, 1, 1, 'prueba timestamp', NULL, 'cocina', '2017-08-11');
+CREATE TABLE IF NOT EXISTS `comanda_plato` (
+  `comanda_id` int(11) NOT NULL,
+  `plato_id` int(11) NOT NULL,
+  PRIMARY KEY (`comanda_id`,`plato_id`),
+  KEY `IDX_49E7746787958A8` (`comanda_id`),
+  KEY `IDX_49E7746B0DB09EF` (`plato_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -57,19 +61,10 @@ INSERT INTO `comanda` (`id`, `camarero_id`, `plato_id`, `mesa_id`, `observacione
 
 CREATE TABLE IF NOT EXISTS `mesa` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `comensales` int(11) NOT NULL,
   `num` int(11) NOT NULL,
+  `comensales` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
-
---
--- Volcado de datos para la tabla `mesa`
---
-
-INSERT INTO `mesa` (`id`, `comensales`, `num`) VALUES
-(1, 8, 1),
-(2, 4, 2),
-(3, 4, 3);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -86,29 +81,7 @@ CREATE TABLE IF NOT EXISTS `plato` (
   `category` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_914B3E455E237E06` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
-
---
--- Volcado de datos para la tabla `plato`
---
-
-INSERT INTO `plato` (`id`, `name`, `price`, `path`, `description`, `category`) VALUES
-(1, 'Prueba_plato1', 9.00, 'png', 'Chuletas de cordero', 'co'),
-(2, 'Prueba_plato2', 15.00, 'png', 'Salmon al horno', 'ce');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `plato_comanda`
---
-
-CREATE TABLE IF NOT EXISTS `plato_comanda` (
-  `plato_id` int(11) NOT NULL,
-  `comanda_id` int(11) NOT NULL,
-  PRIMARY KEY (`plato_id`,`comanda_id`),
-  KEY `IDX_215509A0B0DB09EF` (`plato_id`),
-  KEY `IDX_215509A0787958A8` (`comanda_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -153,17 +126,15 @@ CREATE TABLE IF NOT EXISTS `user` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_8D93D649F85E0677` (`username`),
   UNIQUE KEY `UNIQ_8D93D649E7927C74` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
 
 --
 -- Volcado de datos para la tabla `user`
 --
 
 INSERT INTO `user` (`id`, `username`, `surname`, `dni`, `phone`, `email`, `address`, `password`, `is_active`, `salt`, `discr`) VALUES
-(1, 'admin', 'admin', '44444444X', 666666666, 'admin@admin.es', 'c/ Admin', '$2y$12$7f41ef749cf5ab677c763uOIv9KHTQNfuPFXqk8x8w44yWIQEVnw.', 1, '7f41ef749cf5ab677c7639f421d03709', 'administrador'),
-(2, 'cocinero', 'cocinero', '11111111C', 666666666, 'cocinero@gmail.com', 'c/ Cocinero', '$2y$12$f73a0a5920fb975882789OoOFerexPTJ.quIIjPwoAlvPK9abmgZ6', 1, 'f73a0a5920fb975882789a571aa29910', 'cocinero'),
-(6, 'camarero1', 'camarero', '44444444X', 666666666, 'camarero@gmail.com', 'c/ camarero', '$2y$12$5092a1bbed38cf9c3e007uQeNfz4AfDYIa8bRKIGRyfDO3xCZHKS.', 1, '5092a1bbed38cf9c3e00730ad677e97b', 'camarero'),
-(7, 'camarero2', 'camarero', '44444444X', 666666666, 'camarero2@gmail.com', 'c/ camarero', '$2y$12$578131920e70275be6d1aOSork897PzuSq3LpdSsG/kszLS7jFlAC', 1, '578131920e70275be6d1adcb58b6062b', 'camarero');
+(1, 'admin', 'admin', '44444444X', 666666666, 'admin@admin.es', 'c/ Admin', '$2y$12$25adada5009f7a34e1cf8OzD0gmGBW5uHN5AfHB3MqVUMAqdurroy', 1, '25adada5009f7a34e1cf8a4977ea874d', 'administrador'),
+(2, 'cocinero', 'cocinero', '44444444X', 666666666, 'cocinero@gmail.com', 'c/ cocinero', '$2y$12$8025fae98a95642607834ujdZIaQ9E.HndA0qDagGtn.xNwCVLWdW', 1, '8025fae98a9564260783487142cd90c5', 'cocinero');
 
 -- --------------------------------------------------------
 
@@ -185,9 +156,7 @@ CREATE TABLE IF NOT EXISTS `user_roles` (
 
 INSERT INTO `user_roles` (`user_id`, `roles_id`) VALUES
 (1, 1),
-(2, 2),
-(6, 3),
-(7, 3);
+(2, 2);
 
 --
 -- Restricciones para tablas volcadas
@@ -197,16 +166,15 @@ INSERT INTO `user_roles` (`user_id`, `roles_id`) VALUES
 -- Filtros para la tabla `comanda`
 --
 ALTER TABLE `comanda`
-  ADD CONSTRAINT `FK_45C50E547760FF7E` FOREIGN KEY (`camarero_id`) REFERENCES `user` (`id`),
   ADD CONSTRAINT `FK_45C50E548BDC7AE9` FOREIGN KEY (`mesa_id`) REFERENCES `mesa` (`id`),
-  ADD CONSTRAINT `FK_45C50E54B0DB09EF` FOREIGN KEY (`plato_id`) REFERENCES `plato` (`id`);
+  ADD CONSTRAINT `FK_45C50E547760FF7E` FOREIGN KEY (`camarero_id`) REFERENCES `user` (`id`);
 
 --
--- Filtros para la tabla `plato_comanda`
+-- Filtros para la tabla `comanda_plato`
 --
-ALTER TABLE `plato_comanda`
-  ADD CONSTRAINT `FK_215509A0787958A8` FOREIGN KEY (`comanda_id`) REFERENCES `comanda` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_215509A0B0DB09EF` FOREIGN KEY (`plato_id`) REFERENCES `plato` (`id`) ON DELETE CASCADE;
+ALTER TABLE `comanda_plato`
+  ADD CONSTRAINT `FK_49E7746B0DB09EF` FOREIGN KEY (`plato_id`) REFERENCES `plato` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FK_49E7746787958A8` FOREIGN KEY (`comanda_id`) REFERENCES `comanda` (`id`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `user_roles`
