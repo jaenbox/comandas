@@ -65,9 +65,9 @@ listCamarero:
     path: /camarero/list
     defaults: { _controller: AppBundle:Camarero:list, _locale: es }
           
-newCocinero:
-    path: /cocinero/new
-    defaults: { _controller: AppBundle:Cocinero:new, _locale: es }
+#newCocinero:
+#    path: /cocinero/new
+#    defaults: { _controller: AppBundle:Cocinero:new, _locale: es }
     
 editCocinero:
     path: /cocinero/edit/{id}
@@ -146,3 +146,7 @@ editComanda:
 listComanda:
     path: /comanda/list
     defaults: { _controller: AppBundle:Comanda:list, _locale: es }
+    
+newPedido:
+    path: /pedido/new
+    defaults: { _controller: AppBundle:Pedido:new, _locale: es }

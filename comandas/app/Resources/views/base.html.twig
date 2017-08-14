@@ -28,6 +28,8 @@
     		<link href="{{ asset_url }}" rel="stylesheet" type="text/css" />
         {% endstylesheets %}
     </head>
+    
+    
     <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
           <div class="container-fluid">
@@ -79,11 +81,10 @@
     {% block javascripts %}
     		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    		
-    		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
-    		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.min.js"></script>
-    		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js"></script>
-    		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+    		    		
+    		<script src="//code.highcharts.com/4.1.8/highcharts.js"></script>
+			<script src="//code.highcharts.com/4.1.8/modules/exporting.js"></script>
+			
     {% endblock %}
         {% stylesheets '@AppBundle/Resources/public/css/bootstrap/docs/assets/js/vendor/holder.min.js' filter='cssrewrite' %}
     	 	<!-- Include all compiled plugins (below), or include individual files as needed -->

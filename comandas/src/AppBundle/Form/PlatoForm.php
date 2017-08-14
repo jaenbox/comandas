@@ -19,7 +19,9 @@ class PlatoForm extends AbstractType {
                 'choices' => array( 
                     'al' => 'almuerzo', 
                     'co' => 'comida', 
-                    'ce' => 'cena'),
+                    'ce' => 'cena',
+                    'beb' => 'bebida',
+                    'caf'=> 'cafes e infusiones'),
             ))
             ->add('price', 'text', ['label' => 'Precio'])
             ->add('description', 'text', ['label' => 'Descripcion'])

@@ -23,65 +23,55 @@ class Comanda {
      *
      */
     protected $id;
+    
+    /**
+     * @ORM\Column(type="integer")
+     * @Assert\NotBlank()
+     */
+    protected $cantidad;
+    
     /**
      * @ORM\Column(type="string", length=1000)
      * @Assert\NotBlank()
      *
      */
     protected $observaciones;
-    /**
-     * @ORM\Column(name="pagado", type="boolean", nullable=true)
-     */
-    protected $isPagado;
-    /**
-     * @ORM\Column(type="string")
-     * @Assert\NotBlank(message="notblank")
-     * @Assert\Choice(
-     * 		choices = {"cocina", "servido"}
-     * )
-     */
-    protected $estado;
-    /**
-     * @ORM\Column(type="date")
-     * @Assert\Date()
-     * @Assert\NotBlank()
-     */
-    protected $fecha;
     
-    //Relación de "Camarero --- Comanda" 1:N con la asignación de metadatos, método "Annotations".
+    //Relación de "Plato --- Comanda" 1:N con la asignación de metadatos, método "Annotations".
     /**
-     * @ORM\ManyToOne(targetEntity="Camarero", inversedBy="comanda")
-     * @ORM\JoinColumn(name="camarero_id", referencedColumnName="id", nullable=false)
-     */
-    protected $camarero;
-    
-    //Relación de "Plato --- Comanda" N:N con la asignación de metadatos, método "Annotations".
-    /**
-     * @ORM\ManyToMany(targetEntity="Plato", inversedBy="comanda")     
+     * @ORM\ManyToOne(targetEntity="Plato", inversedBy="comanda")
+     *  @ORM\JoinColumn(name="id_plato", referencedColumnName="id", nullable=false)   
      */
     protected $plato;
     
-    //Relación de "Mesa --- Comanda" 1:N con la asignación de metadatos, método "Annotations".
+    //Relación de "Pedido --- Comanda" 1:N con la asignación de metadatos, método "Annotations".
     /**
-     * @ORM\ManyToOne(targetEntity="Mesa", inversedBy="comanda")
-     * @ORM\JoinColumn(name="mesa_id", referencedColumnName="id", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Pedido", inversedBy="comanda")
+     * @ORM\JoinColumn(name="id_pedido", referencedColumnName="id", nullable=false)
      */
-    protected $mesa;
+    protected $pedido;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->plato = new ArrayCollection();
+        $this->plato = new ArrayCollection();        
     }
-    
     /**
      * @return the $id
      */
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return the $cantidad
+     */
+    public function getCantidad()
+    {
+        return $this->cantidad;
     }
 
     /**
@@ -92,47 +82,20 @@ class Comanda {
         return $this->observaciones;
     }
 
-    
-    /**
-     * @return the $camarero
-     */
-    public function getCamarero()
-    {
-        return $this->camarero;
-    }
-
     /**
      * @return the $plato
      */
     public function getPlato()
     {
-        return $this->plato->toArray();
+        return $this->plato;
     }
 
     /**
-     * @return the $mesa
+     * @return the $pedido
      */
-    public function getMesa()
+    public function getPedido()
     {
-        return $this->mesa;
-    }
-
-    /**
-     * @return the $estado
-     */
-    public function getEstado()
-    {
-        return $this->estado;
-    }
-
-    /**
-     * Get fecha
-     * 
-     * @return \DateTime
-     */
-    public function getFecha()
-    {
-        return $this->fecha;
+        return $this->pedido;
     }
 
     /**
@@ -144,6 +107,14 @@ class Comanda {
     }
 
     /**
+     * @param field_type $cantidad
+     */
+    public function setCantidad($cantidad)
+    {
+        $this->cantidad = $cantidad;
+    }
+
+    /**
      * @param field_type $observaciones
      */
     public function setObservaciones($observaciones)
@@ -152,31 +123,7 @@ class Comanda {
     }
 
     /**
-     * @return the $isPagado
-     */
-    public function getIsPagado()
-    {
-        return $this->isPagado;
-    }
-
-    /**
-     * @param field_type $isPagado
-     */
-    public function setIsPagado($isPagado)
-    {
-        $this->isPagado = $isPagado;
-    }
-
-    /**
-     * @param field_type $camarero
-     */
-    public function setCamarero(\AppBundle\Entity\Camarero $camarero = null)
-    {
-        return $this->camarero = $camarero;
-    }
-
-    /**
-     * @param field_type $plato
+     * @param \Doctrine\Common\Collections\ArrayCollection $plato
      */
     public function setPlato($plato)
     {
@@ -184,80 +131,11 @@ class Comanda {
     }
 
     /**
-     * @param field_type $mesa
+     * @param \Doctrine\Common\Collections\ArrayCollection $pedido
      */
-    public function setMesa($mesa)
+    public function setPedido($pedido)
     {
-        $this->mesa = $mesa;
-    }
-
-    /**
-     * @param field_type $estado
-     */
-    public function setEstado($estado)
-    {
-        return $this->estado = $estado;
+        $this->pedido = $pedido;
     }
     
-    /**
-     * @param field_type $fecha
-     */
-    public function setFecha(\DateTime $fecha = null)
-    {
-        return $this->fecha = $fecha;
-    }
-
-    /**
-     * Add platos
-     *
-     * @param \AppBundle\Entity\Plato $plato
-     * @return User
-     */
-    public function addRole(\AppBundle\Entity\Plato $plato)
-    {
-        $this->plato[] = $plato;
-        return $this;
-    }
-    /**
-     * Remove plato
-     *
-     * @param \AppBundle\Entity\Plato $plato
-     */
-    public function removeRole(\AppBundle\Entity\Plato $plato)
-    {
-        $this->plato->removeElement($plato);
-    }
-    /**
-     * Get plato
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getRoles()
-    {
-        return $this->plato->toArray();
-    }
-
-    /**
-     * Add plato
-     *
-     * @param \AppBundle\Entity\Plato $plato
-     *
-     * @return Comanda
-     */
-    public function addPlato(\AppBundle\Entity\Plato $plato)
-    {
-        $this->plato[] = $plato;
-
-        return $this;
-    }
-
-    /**
-     * Remove plato
-     *
-     * @param \AppBundle\Entity\Plato $plato
-     */
-    public function removePlato(\AppBundle\Entity\Plato $plato)
-    {
-        $this->plato->removeElement($plato);
-    }
 }

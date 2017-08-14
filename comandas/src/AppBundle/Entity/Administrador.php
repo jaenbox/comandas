@@ -5,7 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use AppBundle\Entity\Administrador;
-use AppBundle\Entity\Camarero;
+
 
 /**
  *
@@ -16,26 +16,45 @@ use AppBundle\Entity\Camarero;
  */
 class Administrador extends User {
     
-    // Relación de "Administrador --- Comandas" 1:N.
+    // Relación de "Administrador --- Pedido" 1:N.
     /**
-     * @ORM\OneToMany(targetEntity="Comanda", mappedBy="administrador")
+     * @ORM\OneToMany(targetEntity="Pedido", mappedBy="administrador")
      */
-    protected $comandas;
+    protected $pedidos;
     
     public function __construct()
     {
-        $this->comandas = new ArrayCollection();        
+        $this->pedidos = new ArrayCollection();        
     }
     
     /**
-     * Add comanda
+     * Add pedido
      *
-     * @param \AppBundle\Entity\Comanda $incidencias
+     * @param \AppBundle\Entity\Pedido $pedido
      * @return Administrador
      */
-    public function addComanda(\AppBundle\Entity\Comanda $comandas)
+    public function addPedido(\AppBundle\Entity\Pedido $pedidos)
     {
-        $this->comandas[] = $comandas;
+        $this->pedidos[] = $pedidos;
         return $this;
     }
+    /**
+     * Remove pedido
+     *
+     * @param \AppBundle\Entity\Pedido $pedidos
+     */
+    public function removePedido(\AppBundle\Entity\Pedido $pedidos)
+    {
+        $this->pedidos->removeElement($pedidos);
+    }
+    /**
+     * Get pedidos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPedido()
+    {
+        return $this->pedidos;
+    }
+    
 }

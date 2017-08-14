@@ -11,7 +11,7 @@ use Symfony\Component\Security\Core\Role\RoleInterface;
  * @ORM\Entity(repositoryClass="AppBundle\Entity\RolesRepository")
  * 
  */
-class Roles implements RoleInterface {
+class Roles implements RoleInterface{
     /**
      * @var integer
      *
@@ -32,6 +32,7 @@ class Roles implements RoleInterface {
      * @ORM\Column(name="role", type="string", length=20)
      */
     private $role;
+    
     /**
      * @ORM\ManyToMany(targetEntity="User", mappedBy="roles")
      */
@@ -39,56 +40,55 @@ class Roles implements RoleInterface {
     
     public function __construct()
     {
-        $this->users = new ArrayCollection();
+    	$this->users = new ArrayCollection();
     }
+    
     /**
-     * Get id
-     *
-     * @return integer
+     * @return the $id
      */
     public function getId()
     {
         return $this->id;
     }
+
     /**
-     * Set nombre
-     *
-     * @param string $nombre
-     * @return Roles
-     */
-    public function setNombre($nombre)
-    {
-        $this->nombre = $nombre;
-        return $this;
-    }
-    /**
-     * Get nombre
-     *
-     * @return string
+     * @return the $nombre
      */
     public function getNombre()
     {
         return $this->nombre;
     }
+
     /**
-     * Set role
-     *
-     * @param string $role
-     * @return Roles
-     */
-    public function setRole($role)
-    {
-        $this->role = $role;
-        return $this;
-    }
-    /**
-     * Get role
-     *
-     * @return string
+     * @return the $role
      */
     public function getRole()
     {
         return $this->role;
+    }
+
+    /**
+     * @param number $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @param string $nombre
+     */
+    public function setNombre($nombre)
+    {
+        $this->nombre = $nombre;
+    }
+
+    /**
+     * @param string $role
+     */
+    public function setRole($role)
+    {
+        $this->role = $role;
     }
     
     /**
@@ -119,5 +119,5 @@ class Roles implements RoleInterface {
     public function getUsers()
     {
         return $this->users;
-    }
+    }  
 }

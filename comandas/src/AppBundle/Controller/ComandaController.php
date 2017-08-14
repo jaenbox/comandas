@@ -4,10 +4,35 @@ namespace AppBundle\Controller;
 
 use AppBundle\Form\ComandaForm;
 use AppBundle\Entity\Comanda;
+use AppBundle\Entity\Camarero;
+use AppBundle\Entity\Pedido;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class ComandaController extends Controller {
+    
+    public function newAction(Request $request) {
+        /*
+        $camarero = $this->getUser();
+        $pedido = new Pedido();
+        
+        $fecha = date('Y-m-d');
+        $formato = 'Y-m-d';
+        $fecha = \DateTime::createFromFormat($formato, $fecha);
+        $pedido->setFecha($fecha);
+        $pedido->setEstado('cocina');
+        $pedido->setCamarero($camarero);
+        */
+        
+        
+        $form = $this->createForm(new ComandaForm(), $pedido, array(
+            'method' => 'POST'
+        ));
+        
+        return $this->render('comanda/new.html.twig', array(
+            'form' => $form->createView(),
+        ));
+    }
     
     public function editAction($id, Request $request) { 
         

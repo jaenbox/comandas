@@ -100,9 +100,16 @@ class User implements AdvancedUserInterface, \Serializable {
      */
     protected  $roles;
     
+    // Relación de "User --- Pedido" 1:N.
+    /**
+     * @ORM\OneToMany(targetEntity="Pedido", mappedBy="user")
+     */
+    protected $pedidos;
+    
     public function __construct()
     {
         $this->roles = new ArrayCollection();
+        $this->pedidos = new ArrayCollection();        
     }
     
     /**
@@ -235,6 +242,14 @@ class User implements AdvancedUserInterface, \Serializable {
         return $this->address;
     }
     /**
+     * @param field_type $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
      * Set password
      *
      * @param string $password
@@ -265,6 +280,7 @@ class User implements AdvancedUserInterface, \Serializable {
         $this->isActive = $isActive;
         return $this;
     }
+    
     /**
      * Get isActive
      *
@@ -326,6 +342,17 @@ class User implements AdvancedUserInterface, \Serializable {
             $this->salt
             ) = unserialize($serialized);
     }
+    
+    /**
+     * Get roles
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRoles()
+    {
+        return $this->roles->toArray();
+    }
+    
     /**
      * Add roles
      *
@@ -337,6 +364,7 @@ class User implements AdvancedUserInterface, \Serializable {
         $this->roles[] = $roles;
         return $this;
     }
+    
     /**
      * Remove roles
      *
@@ -346,15 +374,7 @@ class User implements AdvancedUserInterface, \Serializable {
     {
         $this->roles->removeElement($roles);
     }
-    /**
-     * Get roles
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getRoles()
-    {
-        return $this->roles->toArray();
-    }
+    
     public function isAccountNonExpired()
     {
         return true;
@@ -370,5 +390,35 @@ class User implements AdvancedUserInterface, \Serializable {
     public function isEnabled()
     {
         return $this->isActive;
+    }
+    
+    /**
+     * Add pedido
+     *
+     * @param \AppBundle\Entity\Pedido $pedido
+     * @return User
+     */
+    public function addPedido(\AppBundle\Entity\Pedido $pedidos)
+    {
+        $this->pedidos[] = $pedidos;
+        return $this;
+    }
+    /**
+     * Remove pedido
+     *
+     * @param \AppBundle\Entity\Pedido $pedidos
+     */
+    public function removePedido(\AppBundle\Entity\Pedido $pedidos)
+    {
+        $this->pedidos->removeElement($pedidos);
+    }
+    /**
+     * Get pedidos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPedido()
+    {
+        return $this->pedidos;
     }
 }

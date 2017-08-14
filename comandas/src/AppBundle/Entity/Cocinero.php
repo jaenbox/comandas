@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping\Entity;
 
 /**
@@ -15,5 +16,25 @@ use Doctrine\ORM\Mapping\Entity;
  *
  */
 class Cocinero extends User {   
+    // Relación de "Pedido --- Pedido" 1:N.
+    /**
+     * @ORM\OneToMany(targetEntity="Pedido", mappedBy="cocinero")
+     */
+    protected $pedidos;
     
+    public function __construct()
+    {
+        $this->pedidos = new ArrayCollection();
+    }
+    
+    
+    /**
+     * Get pedidos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPedido()
+    {
+        return $this->pedidos;
+    }
 }

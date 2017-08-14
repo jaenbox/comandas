@@ -3,6 +3,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Doctrine\ORM\Mapping as ORM;
@@ -37,7 +38,16 @@ class Mesa {
      */
     protected $comensales;
     
+    /**
+     * @ORM\OneToMany(targetEntity="Pedido", mappedBy="mesa")
+     * 
+     */
+    protected $pedidos;
     
+    public function __construct()
+    {
+        $this->pedidos = new ArrayCollection();
+    }
     
     /**
      * @return the $id
