@@ -1,9 +1,9 @@
 #fondo {
-	position: absolute; 
-	top: 0; 
-	left: 0;
-	width: 100%; 
-	z-index: -1
+  position: absolute; 
+  top: 0; 
+  left: 0;
+  width: 100%; 
+  z-index: -1;
 }
 
 /* LOGIN */
@@ -12,7 +12,7 @@ box-sizing: border-box;
 }
 
 *:focus {
-	outline: none;
+  outline: none;
 }
 
 body {
@@ -46,15 +46,15 @@ margin-bottom: 10px;
 }
 
 .input_login {
-	text-align: center;
-	background-color: #ECF0F1;
-	border: 2px solid transparent;
-	border-radius: 3px;
-	font-size: 16px;
-	font-weight: 200;
-	padding: 10px 0;
-	width: 250px;
-	transition: border .5s;
+  text-align: center;
+  background-color: #ECF0F1;
+  border: 2px solid transparent;
+  border-radius: 3px;
+  font-size: 16px;
+  font-weight: 200;
+  padding: 10px 0;
+  width: 250px;
+  transition: border .5s;
 }
 
 .input_login:focus {
@@ -87,44 +87,50 @@ box-shadow: none;
   font-size: 12px;
   color: #444;
   display: block;
-	margin-top: 12px;
+  margin-top: 12px;
 }
 /* Mensaje de error de login*/
 #error_message {
-	color: red;
-	text-align: center;
-	
+  color: red;
+  text-align: center;
+  
 }
 .div_centrado {
-	text-align:center;
-	width:300px;
-	margin: 0 auto;
-	height: 50px;
+  text-align:center;
+  width:300px;
+  margin: 0 auto;
+  height: 50px;
 }
 .div_form {
-	text-align:center;
-	width:500px;
-	margin: 0 auto;
-	height: 50px;
+  text-align:center;
+  width:500px;
+  margin: 0 auto;
+  height: 50px;
 }
 .btn_table {
-	width:50px;	
+  width:50px; 
 }
 .btn-block {
-	padding: 10% 0; 
-	
+  padding: 10% 0; 
+  
 }
 
-.border-right{	
-	float:right;
+.border-right{  
+  float:right;
 }
-.border-left{	
-	float:left;
+.border-left{ 
+  float:left;
 }
 .table-responsive {
-	margin-top:10%;
+  margin-top:10%;
 }
 
-
-
-
+.pedidos-pendientes {
+	border-radius: 20px 20px 20px 20px;
+	-moz-border-radius: 20px 20px 20px 20px;
+	-webkit-border-radius: 20px 20px 20px 20px;
+	background-color: #3498DB;
+	border: 0px solid #000000;
+	margin-right: 5px;
+	margin-bottom: 5%;
+}

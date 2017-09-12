@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain 'AppBundle' %}
+  
+{% block body %}
+	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    	<h1 class="page-header">Pedidos</h1>
+    
+        <h2 class="sub-header">Listado de pedidos</h2>
+        <div class="table-responsive">
+        	<table class="table table-striped">
+            	 <button class="btn btn-default" data-toggle="modal" data-target="#dateModal">Filtrar pedidos</button>           	      
+            </table>
+		</div>
+        <div id="linechart" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+	</div>
+	<!-- date modal -->
+            <div id="dateModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  			<h4 class="modal-title">Fecha de pedido</h4>                        
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-inline"  >
+                                <div class="form-group">
+                                	<select id="date_text">                                   
+                                        {% for fecha in fechas %}
+                                        	<option value={{ fecha.fecha|date("Y-m-d") }}>{{ fecha.fecha|date("d-m-Y") }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>  
+                                <div class="modal-footer">                  
+                                  <input type="submit" id="btn_date" name="btn_date" value="Enviar" class="btn btn-default"/>
+                                </div>                                                       
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>           	
+{% endblock %} 

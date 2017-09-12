@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% trans_default_domain 'AppBundle' %}
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}
+{% block body %}
+
+	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    	<h1 class="page-header">Pedidos</h1>
+    	<h2 class="sub-header">Listado de pedidos realizados el día {{ fechaActual|date("d-m-Y") }}</h2>
+    	{% if pedidos == null %}
+    		<p>No existen pedidos de el día {{ fechaActual|date("d-m-Y") }}</p>
+    		{% if is_granted('ROLE_SUPER_ADMIN') %}
+        		<div class="border-left">
+        			<a type="button" class="btn btn-default" data-toggle="modal" data-target="#dateModal">Filtrar pedidos</a>
+        		</div>
+        	{% endif %}
+    		<div class="border-left">
+        		<a type="button" class="btn btn-default" href="{{ path( 'listPedido' ) }}">Listar pedidos actuales cocina</a>
+        	</div>
+    			
+    	{% else %}
+    		{% if is_granted('ROLE_SUPER_ADMIN') %}
+        		<div class="border-left">
+        			<a type="button" class="btn btn-default" data-toggle="modal" data-target="#dateModal">Filtrar pedidos</a>
+        		</div>
+        	{% endif %}
+    		<div class="border-left">
+        		<a type="button" class="btn btn-default" href="{{ path( 'listPedido' ) }}">Listar pedidos actuales cocina</a>
+        	</div>	   
+        	{% if is_granted('ROLE_SUPER_ADMIN') %}		
+        		<div class="table-responsive">    			
+                    <table class="table table-striped">    			
+        				<thead>
+        					<tr>
+        						<td>Id</td>
+        						<td>Pagado</td>						
+        						<td>estado</td>						
+        						<td></td>
+        					</tr>
+        				</thead>
+        				<tbody>
+                            {% for pedido in pedidos %}
+                            <tr>
+                            	<td>{{ pedido.id }}</td>
+                            	<td>{% if pedido.isPagado == '0' %}
+                            			impago</td>
+                            		    {% else %}
+                            				pagado</td>
+                            	    {% endif %}
+                            	<td>{{ pedido.estado }}</td>
+                            	<td>              			
+                      				<div class="btn-group">
+                          				<a type="button" class="btn btn-success btn_table active" href="{{ path( 'showPedido', { 'id': pedido.id } ) }}">Show</a>
+                          				<a type="button" class="btn btn-warning btn_table active" href="{{ path( 'editPedido', { 'id': pedido.id } ) }}">Edit</a>                      				
+                      				</div>
+                      			</td>
+                            </tr>                        	
+                            {% endfor %}
+                        </tbody>
+        			</table>
+    			</div>
+    		{% endif %}
+			<div class="border-left">
+        		<a type="button" class="btn btn-default" href="{{ path( 'index' ) }}">Atrás</a>
+        	</div>
+    	{% endif %}
+   	</div>
+   	<!-- date modal -->
+            <div id="dateModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  			<h4 class="modal-title">Fecha de pedido</h4>                        
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-inline"  >
+                                <div class="form-group">
+                                	<select id="date_text">                                   
+                                        {% for pedido in fechas %}
+                                        	<option value={{ pedido.fecha|date("Y-m-d") }}>{{ pedido.fecha|date("d-m-Y") }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>  
+                                <div class="modal-footer">                  
+                                  <input type="submit" id="btn_date" name="btn_date" value="Enviar" class="btn btn-default"/>
+                                </div>                                                       
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+{% endblock %}

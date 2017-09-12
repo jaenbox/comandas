@@ -102,7 +102,7 @@ class User implements AdvancedUserInterface, \Serializable {
     
     // Relación de "User --- Pedido" 1:N.
     /**
-     * @ORM\OneToMany(targetEntity="Pedido", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="Pedido", mappedBy="users", cascade={"remove"}, orphanRemoval=true)
      */
     protected $pedidos;
     
@@ -418,6 +418,16 @@ class User implements AdvancedUserInterface, \Serializable {
      * @return \Doctrine\Common\Collections\Collection
      */
     public function getPedido()
+    {
+        return $this->pedidos;
+    }
+
+    /**
+     * Get pedidos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPedidos()
     {
         return $this->pedidos;
     }

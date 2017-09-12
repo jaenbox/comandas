@@ -97,7 +97,7 @@ class MesaController extends Controller {
         
         $mesa = $this->getDoctrine()->getRepository('AppBundle:Mesa')->find($id);
         
-        // Si no existe el plato mostramos excepción
+        // Si no existe el mesa mostramos excepción
         if(!$mesa) {
             throw $this->createNotFoundException(
                 'No existe la mesa con el id: '.$id );
@@ -108,7 +108,7 @@ class MesaController extends Controller {
     
     public function listAction(Request $request) {
         // Recogemos el repositorio
-        $repository = $this->getDoctrine() ->getRepository('AppBundle:Mesa');
+        $repository = $this->getDoctrine()->getRepository('AppBundle:Mesa');
         // recuperamos todos los datos
         $mesas = $repository->findAll();
         

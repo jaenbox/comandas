@@ -90,7 +90,7 @@ class PlatoController extends Controller {
         $em->remove($plato);
         $em->flush();
         
-        $nextAction = 'plato';
+        $nextAction = 'listPlato';
         return $this->redirectToRoute($nextAction);
     }
     

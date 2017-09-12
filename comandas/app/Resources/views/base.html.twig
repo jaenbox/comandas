@@ -5,6 +5,7 @@
         <meta charset="UTF-8" />
         <title>{% block title %}Comandas{% endblock %}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="refresh" content="10" />
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         {% block stylesheets %}
         	<!-- Bootstrap -->
@@ -17,9 +18,7 @@
 	        <!-- Latest compiled and minified JavaScript -->
 	        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 	        <!--  Google font ROBOTO -->
-	        <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>       
-	        
-	        
+	        <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
         {% endblock %}
         {% stylesheets '@AppBundle/Resources/public/css/bootstrap/dist/css/*' filter='cssrewrite' %}
     		<link href="{{ asset_url }}" rel="stylesheet" type="text/css" />
@@ -31,7 +30,7 @@
     
     
     <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+    	<nav class="navbar navbar-inverse navbar-fixed-top">
           <div class="container-fluid">
             <div class="navbar-header">
               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -40,11 +39,18 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand" href="#">Comandas</a>
+              <a class="navbar-brand" href="{{ path('index') }}">Comandas</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
               <ul class="nav navbar-nav navbar-right">          
-                <li><a href="{{ path('logout') }}">Logout</a></li>
+                <li class="dropdown">
+               		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <span class="glyphicon glyphicon glyphicon-user"></span> {{ app.user.username }}<span class="caret"></span></a>
+                    	<ul class="dropdown-menu">
+                        	<li role="separator" class="divider"></li>
+                            <li><a class="glyphicon glyphicon-log-out" href="{{ path('logout') }}">Salir</a></li>
+                      	</ul>
+				</li>
                 <li><a href="#">Idioma</a></li>
                 <li><a href="#">Help</a></li>
               </ul>          
@@ -56,39 +62,61 @@
           <div class="row">
             <div class="col-sm-3 col-md-2 sidebar">
               <ul class="nav nav-sidebar">
-                <li class="active"><a href="{{ path('index') }}">Dashboard<span class="sr-only">(current)</span></a></li>            
+                <li><a href="{{ path('index') }}">Dashboard</a></li>            
               </ul>
+              {% if is_granted('ROLE_SUPER_ADMIN') %}
               <ul class="nav nav-sidebar">
                 <li><a href="{{ path('listAdmin') }}">Administrador</a></li>
                 <li><a href="{{ path('listCocinero') }}">Cocinero</a></li>
                 <li><a href="{{ path('listCamarero') }}">Camarero</a></li>
-              </ul>
+              </ul>              
               <ul class="nav nav-sidebar">
                 <li><a href="{{ path('listMesa') }}">Mesas</a></li>            
               </ul>
+              {% endif %}
               <ul class="nav nav-sidebar">
                 <li><a href="{{ path('listPlato') }}">Platos</a></li>            
               </ul>
               <ul class="nav nav-sidebar">
-                <li><a href="{{ path('listComanda') }}">Comandas</a></li>            
+                <li><a href="{{ path('selectPedido') }}">Pedidos</a></li>            
               </ul>
-            </div>
+            </div>            
             {% block body %}
             	
             {% endblock %}            
           </div>
-        </div>
-    {% block javascripts %}
+        </div>        
+        {% block javascripts %}
     		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    		    		
+    		
     		<script src="//code.highcharts.com/4.1.8/highcharts.js"></script>
-			<script src="//code.highcharts.com/4.1.8/modules/exporting.js"></script>
-			
-    {% endblock %}
+          	<script src="//code.highcharts.com/4.1.8/modules/exporting.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+            <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.2/jquery.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+			<!-- Script JQuery. Recoge elenvento del boton btn_date y pasa el valor seleccionado en el elemento Select a la url y mostrar pedidos por fecha -->
+	 		<script type="text/javascript">
+	 		
+      			$(document).ready(function () {
+          			
+          			$("#btn_date").click(function() {
+          				
+          				var url = "http://localhost:8000/pedido/search/"+$("#date_text").val()+'?nocache='+ Math.random();;
+          				          				
+          				window.open(url, '_self');
+          				return false;
+	         
+          			});					
+      			});
+      			
+			</script>
+
+        {% endblock %}
         {% stylesheets '@AppBundle/Resources/public/css/bootstrap/docs/assets/js/vendor/holder.min.js' filter='cssrewrite' %}
     	 	<!-- Include all compiled plugins (below), or include individual files as needed -->
     		<link href="{{ asset_url }}" rel="stylesheet" type="text/css" />
         {% endstylesheets %}
+        
 	</body>
 </html>

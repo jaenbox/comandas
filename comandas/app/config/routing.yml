@@ -48,7 +48,7 @@ editCamarero:
     defaults: { _controller: AppBundle:Camarero:edit, _locale: es }
     requirements:
         id: \d+
-
+        
 deleteCamarero:
     path: /camarero/delete/{id}
     defaults: { _controller: AppBundle:Camarero:delete, _locale: es }
@@ -64,11 +64,7 @@ showCamarero:
 listCamarero:
     path: /camarero/list
     defaults: { _controller: AppBundle:Camarero:list, _locale: es }
-          
-#newCocinero:
-#    path: /cocinero/new
-#    defaults: { _controller: AppBundle:Cocinero:new, _locale: es }
-    
+            
 editCocinero:
     path: /cocinero/edit/{id}
     defaults: { _controller: AppBundle:Cocinero:edit, _locale: es }
@@ -143,10 +139,26 @@ editComanda:
     requirements:
         id: \d+
         
-listComanda:
-    path: /comanda/list
-    defaults: { _controller: AppBundle:Comanda:list, _locale: es }
+searchPedido:
+    path: /pedido/search/{fecha}
+    defaults: { _controller: AppBundle:Pedido:search, _locale: es }
+
+editPedido:
+    path: /pedido/edit/{id}
+    defaults: { _controller: AppBundle:Pedido:edit, _locale: es }
+    requirements:
+        id: \d+
+
+showPedido:
+    path: /pedido/show/{id}
+    defaults: { _controller: AppBundle:Pedido:show, _locale: es }
+    requirements:
+        id: \d+
+
+selectPedido:
+    path: /pedido/select
+    defaults: { _controller: AppBundle:Pedido:select, _locale: es }
     
-newPedido:
-    path: /pedido/new
-    defaults: { _controller: AppBundle:Pedido:new, _locale: es }
+listPedido:
+    path: /pedido/pendiente
+    defaults: { _controller: AppBundle:Pedido:pendiente, _locale: es }

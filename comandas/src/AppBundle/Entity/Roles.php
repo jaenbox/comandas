@@ -34,7 +34,7 @@ class Roles implements RoleInterface{
     private $role;
     
     /**
-     * @ORM\ManyToMany(targetEntity="User", mappedBy="roles")
+     * @ORM\ManyToMany(targetEntity="User", mappedBy="roles", cascade={"remove"}, orphanRemoval=true)
      */
     private $users;
     

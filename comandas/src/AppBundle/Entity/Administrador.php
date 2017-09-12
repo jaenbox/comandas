@@ -18,7 +18,7 @@ class Administrador extends User {
     
     // Relación de "Administrador --- Pedido" 1:N.
     /**
-     * @ORM\OneToMany(targetEntity="Pedido", mappedBy="administrador")
+     * @ORM\OneToMany(targetEntity="Pedido", mappedBy="administrador", cascade={"remove"}, orphanRemoval=true)
      */
     protected $pedidos;
     
@@ -57,4 +57,14 @@ class Administrador extends User {
         return $this->pedidos;
     }
     
+
+    /**
+     * Get pedidos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPedidos()
+    {
+        return $this->pedidos;
+    }
 }

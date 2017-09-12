@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain 'AppBundle' %}
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}
+{% block body %}
+	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    	<h1 class="page-header">Pedido</h1>    
+        <h2 class="sub-header">Show / Lineas de pedido {{ pedido.comandas|length }}</h2>
+        <div class="table-responsive">
+    		<table class="table">
+    			<tbody>      					
+    				<tr><th>Pedido</th><td>{{ pedido.id }}</td></tr>
+    				<tr><th>Fecha</th><td>{{ pedido.fecha|date("d-m-Y") }}</td></tr>
+    				<tr><th>Pagado</th><td>{% if pedido.isPagado == '0' %}
+                        			impago</td>
+                        		    {% else %}
+                        				pagado</td>
+                        	    {% endif %}</td></tr>
+    				<tr><th>Estado</th><td>{{ pedido.estado }}</td></tr>
+    				<tr><th>Mesa núm</th><td>{{ pedido.mesa.num }}</td></tr>
+    				<tr><th>Camarero</th><td>{{ pedido.users.username }}</td></tr>    				    					
+    			</tbody>
+    		</table>
+		</div>
+		<p></p>
+		<div class="table-responsive">
+    		<table class="table">
+    			<thead>
+					<tr>
+						<th>Plato</th>
+						<th>Precio</th>						
+						<th>Observaciones</th>
+						<th></th>
+					</tr>
+				</thead>
+    			<tbody>
+    			{% set total = '' %}
+                    {% for comanda in pedido.comandas %} 
+                    	<tr>
+                        	<td>{{ comanda.plato.name }}</td>
+                        	<td>{{ comanda.plato.price }}</td>
+                        	<td>{{ comanda.observaciones }}</td>
+                        	{% set total =  total + comanda.plato.price %}
+                    	</tr>                    	
+                    {% endfor %}
+                    	<tr>
+                    		<td></td>
+                    		<td></td>
+                        	<td><strong>TOTAL {{ total }} €</strong></td>
+                        </tr>                  				    					
+    			</tbody>
+    		</table>
+		</div>		
+       	<div class="border-left">
+        	<a type="button" class="btn btn-default" href="{{ path( 'selectPedido' ) }}">Atrás</a>
+        </div>  
+  	</div>
+{% endblock %}
+
+    			

@@ -18,7 +18,7 @@ use Doctrine\ORM\Mapping\Entity;
 class Cocinero extends User {   
     // Relación de "Pedido --- Pedido" 1:N.
     /**
-     * @ORM\OneToMany(targetEntity="Pedido", mappedBy="cocinero")
+     * @ORM\OneToMany(targetEntity="Pedido", mappedBy="cocinero", cascade={"remove"}, orphanRemoval=true)
      */
     protected $pedidos;
     
@@ -34,6 +34,16 @@ class Cocinero extends User {
      * @return \Doctrine\Common\Collections\Collection
      */
     public function getPedido()
+    {
+        return $this->pedidos;
+    }
+
+    /**
+     * Get pedidos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPedidos()
     {
         return $this->pedidos;
     }

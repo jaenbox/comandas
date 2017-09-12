@@ -39,15 +39,15 @@ class Comanda {
     
     //Relación de "Plato --- Comanda" 1:N con la asignación de metadatos, método "Annotations".
     /**
-     * @ORM\ManyToOne(targetEntity="Plato", inversedBy="comanda")
-     *  @ORM\JoinColumn(name="id_plato", referencedColumnName="id", nullable=false)   
+     * @ORM\ManyToOne(targetEntity="Plato", inversedBy="comandas", cascade={"persist"})
+     *  @ORM\JoinColumn(name="id_plato", referencedColumnName="id", nullable=true, onDelete="SET NULL")   
      */
     protected $plato;
     
     //Relación de "Pedido --- Comanda" 1:N con la asignación de metadatos, método "Annotations".
     /**
-     * @ORM\ManyToOne(targetEntity="Pedido", inversedBy="comanda")
-     * @ORM\JoinColumn(name="id_pedido", referencedColumnName="id", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Pedido", inversedBy="comandas", cascade={"persist"})
+     * @ORM\JoinColumn(name="id_pedido", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      */
     protected $pedido;
 

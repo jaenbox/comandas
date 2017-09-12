@@ -19,7 +19,7 @@ class Camarero extends User {
         
     // Relación de "Camarero --- Pedido" 1:N.
     /**
-     * @ORM\OneToMany(targetEntity="Pedido", mappedBy="camarero")
+     * @ORM\OneToMany(targetEntity="Pedido", mappedBy="camarero", cascade={"remove"}, orphanRemoval=true)
      */
     protected $pedidos;
     
@@ -58,4 +58,14 @@ class Camarero extends User {
         return $this->pedidos;
     }
         
+
+    /**
+     * Get pedidos
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPedidos()
+    {
+        return $this->pedidos;
+    }
 }

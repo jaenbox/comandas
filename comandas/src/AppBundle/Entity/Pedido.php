@@ -43,19 +43,19 @@ class Pedido {
         
     //Relación de "Mesa --- Comanda" 1:N con la asignación de metadatos, método "Annotations".
     /**
-     * @ORM\ManyToOne(targetEntity="Mesa", inversedBy="pedido")
-     * @ORM\JoinColumn(name="id_mesa", referencedColumnName="id", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Mesa", inversedBy="pedidos", cascade={"persist"})
+     * @ORM\JoinColumn(name="id_mesa", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      */
     protected $mesa;
     
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="pedido")
-     * @ORM\JoinColumn(name="id_user", referencedColumnName="id", nullable=false)
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="pedidos", cascade={"persist"})
+     * @ORM\JoinColumn(name="id_user", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      */
     protected $users;
     
     /**
-     * @ORM\OneToMany(targetEntity="Comanda", mappedBy="pedido")
+     * @ORM\OneToMany(targetEntity="Comanda", mappedBy="pedido", cascade={"remove"}, orphanRemoval=true)
      * 
      */
     protected $comandas;

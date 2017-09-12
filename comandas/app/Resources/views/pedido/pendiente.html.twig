@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+{% trans_default_domain 'AppBundle' %}
+{% block body %}
+<div class="col-sm-9 col-sm-offset-3 col-md-12 col-md-offset-2 main">
+	<h1 class="page-header">Pedidos</h1>
+  	<h2 class="sub-header">Listado de pedidos en cocina el día {{ fechaActual|date("d-m-Y") }}</h2>  		
+  	<div class="row row-content">
+        {% if pedidos == null %}
+        <p>No existe pedidos en el día de hoy</p>
+        {% else %}
+      		{% for pedido in pedidos %}          		
+            		<div class="col-xs-12 col-sm-4 col-lg-4 pedidos-pendientes">
+            	    	<h3 class="page-header">Pedido: {{ pedido.id }} / Mesa núm: {{ pedido.mesa.num }}</h3>
+            		    <h4 class="sub-header">Camarero: {{ pedido.users.username }}</h4>
+            		    {% set flag = "false" %}
+            		    {% for comanda in pedido.comandas %}
+            		    	<p>{{ comanda.plato.name }}</p>        		    	        		    	
+            		    {% endfor %}
+            		    <h4>Observaciones:</h4>
+            		    {% for comanda in pedido.comandas %}
+            		    	{% if flag == "false" %}
+            		    	    <p>{{ comanda.observaciones }}</p>
+            		    	    {% set flag = "true" %}
+            		    	{% endif %}
+            		    {% endfor %}
+            		</div>		
+    		{% endfor %}
+		{% endif %}
+	</div>
+	<div class="col-xs-12 col-sm-12">
+   		<p style="padding:10px;"></p>
+   	</div>
+	<div class="border-left">
+		<a type="button" class="btn btn-default" href="{{ path( 'selectPedido' ) }}">Atrás</a>
+	</div>
+</div>
+
+{% endblock %}

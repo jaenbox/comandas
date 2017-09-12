@@ -56,19 +56,23 @@ security:
         - { path: ^/camarero/edit, role: ROLE_SUPER_ADMIN }
         - { path: ^/camarero/delete, role: ROLE_SUPER_ADMIN }
         - { path: ^/camarero/show, role: ROLE_SUPER_ADMIN }
-        - { path: ^/camarero/list, role: ROLE_SUPER_ADMIN }
-        - { path: ^/cocinero/new, role: ROLE_SUPER_ADMIN }
+        - { path: ^/camarero/list, role: ROLE_SUPER_ADMIN }        
         - { path: ^/cocinero/edit, role: ROLE_SUPER_ADMIN }
         - { path: ^/cocinero/list, role: ROLE_SUPER_ADMIN }
+        - { path: ^/cocinero/show, role: ROLE_SUPER_ADMIN }
         - { path: ^/mesa/new, role: ROLE_SUPER_ADMIN }
         - { path: ^/mesa/edit, role: ROLE_SUPER_ADMIN }
         - { path: ^/mesa/delete, role: ROLE_SUPER_ADMIN }
         - { path: ^/mesa/show, role: ROLE_SUPER_ADMIN }
-        - { path: ^/mesa/list, role: ROLE_SUPER_ADMIN }        
+        - { path: ^/mesa/list, role: ROLE_SUPER_ADMIN }
+        - { path: ^/plato/new, role: [ ROLE_SUPER_ADMIN, ROLE_COCINERO ] }      
         - { path: ^/plato/edit, role: [ ROLE_SUPER_ADMIN, ROLE_COCINERO ] }
         - { path: ^/plato/delete, role: [ ROLE_SUPER_ADMIN, ROLE_COCINERO ] }
-        - { path: ^/plato/show, role: [ ROLE_SUPER_ADMIN, ROLE_COCINERO ] }
-        - { path: ^/plato/list, role: [ ROLE_SUPER_ADMIN, ROLE_COCINERO ] }
-        - { path: ^/comanda/list, role: [ ROLE_SUPER_ADMIN, ROLE_COCINERO, ROLE_CAMARERO ] }
+        - { path: ^/plato/show, role: [ ROLE_SUPER_ADMIN, ROLE_COCINERO, ROLE_CAMARERO ] }
+        - { path: ^/plato/list, role: [ ROLE_SUPER_ADMIN, ROLE_COCINERO, ROLE_CAMARERO ] }        
         - { path: ^/comanda/edit, role: ROLE_SUPER_ADMIN }
-        - { path: ^/option, role: [ ROLE_SUPER_ADMIN, ROLE_COCINERO, ROLE_CAMARERO ] }
+        - { path: ^/pedido/search, role: [ ROLE_SUPER_ADMIN, ROLE_COCINERO, ROLE_CAMARERO ] }
+        - { path: ^/pedido/edit, role: [ ROLE_SUPER_ADMIN, ROLE_COCINERO, ROLE_CAMARERO ] }
+        - { path: ^/pedido/show, role: [ ROLE_SUPER_ADMIN, ROLE_COCINERO, ROLE_CAMARERO ] }
+        - { path: ^/pedido/select, role: [ ROLE_SUPER_ADMIN, ROLE_COCINERO, ROLE_CAMARERO ] }
+        - { path: ^/pedido/pendiente, role: [ ROLE_SUPER_ADMIN, ROLE_COCINERO, ROLE_CAMARERO ] }                

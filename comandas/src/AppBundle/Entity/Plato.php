@@ -58,7 +58,7 @@ class Plato {
     protected $category;    
     
     /**
-     * @ORM\OneToMany(targetEntity="Comanda", mappedBy="plato")
+     * @ORM\OneToMany(targetEntity="Comanda", mappedBy="plato", cascade={"remove"}, orphanRemoval=true)
      * 
      */
     protected $comandas;
@@ -280,5 +280,39 @@ class Plato {
         if (isset($this->temp)) {
             unlink($this->temp);
         }
+    }
+
+    /**
+     * Add comanda
+     *
+     * @param \AppBundle\Entity\Comanda $comanda
+     *
+     * @return Plato
+     */
+    public function addComanda(\AppBundle\Entity\Comanda $comanda)
+    {
+        $this->comandas[] = $comanda;
+
+        return $this;
+    }
+
+    /**
+     * Remove comanda
+     *
+     * @param \AppBundle\Entity\Comanda $comanda
+     */
+    public function removeComanda(\AppBundle\Entity\Comanda $comanda)
+    {
+        $this->comandas->removeElement($comanda);
+    }
+
+    /**
+     * Get comandas
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComandas()
+    {
+        return $this->comandas;
     }
 }

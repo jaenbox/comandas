@@ -37,8 +37,7 @@
 								{% elseif plato.category == 'ce' %}
 									cena</td>
 								{% endif %}
-							<td>{{ plato.price}}</td>
-							{# <td><img src="{{ asset('uploads/documents/'~ plato.id~ '.'~ plato.path) }}" width="30" height="30" border="0" alt="Img del plato"></td>#}
+							<td>{{ plato.price}}</td>							
 							<td>              			
                   				<div class="btn-group">
                       				<a type="button" class="btn btn-success btn_table active" href="{{ path( 'showPlato', { 'id': plato.id } ) }}">Show</a>
